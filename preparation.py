@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import re
 from nltk.corpus import stopwords
 import nltk.data
+import math
 
 def review_to_words(raw_review, remove_stopwords=False):
     review_text = BeautifulSoup(raw_review).get_text()
@@ -32,3 +33,10 @@ def review_to_sentences(review, remove_stopwords=False):
         if len(raw_sentence) > 0:
             sentences.append(review_to_wordlist(raw_sentence, remove_stopwords))
     return sentences
+
+
+def root_features(feature_array):
+    output_array = []
+    for feature_vector in feature_array:
+        output_array.append([math.sqrt(x) for x in feature_vector])
+    return output_array
